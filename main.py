@@ -1,11 +1,31 @@
-from flask import Flask
+from flask import Flask, redirect, url_for
 from flask.ext.sqlalchemy import SQLAlchemy
 from config import DevConfig
+from flask import Blueprint
 
 
 app = Flask(__name__)
 app.config.from_object(DevConfig)
 db = SQLAlchemy(app)
+
+
+## define blueprint ##
+blog_blueprint = Blueprint(
+    'blog',
+    __name__,
+    template_folder='templates/blog',
+    url_prefix='/blog'
+)
+
+vote_blueprint = Blueprint(
+    'vote',
+    __name__,
+    template_folder='templates/vote',
+    static_folder='static/vote',
+    url_prefix='/vote'
+)
+
+
 
 
 class User(db.Model):
@@ -59,22 +79,22 @@ class Comment(db.Model):
         return '<Comment {}>'.format(self.name)
 
 
-tags = db.Table('post_tags',
-    db.Column('post_id', db.Integer(), db.ForeignKey('post.id')),
-    db.Column('tag_id', db.Integer(), db.ForeignKey('tag.id'))
-)
+#tags = db.Table('post_tags',
+#    db.Column('post_id', db.Integer(), db.ForeignKey('post.id')),
+#    db.Column('tag_id', db.Integer(), db.ForeignKey('tag.id'))
+#)
 
 
+@blog_blueprint.route('/')
+def home():
+    return '<h3>welcome to blog</h3>'
+
+@app.route('/')
+def index():
+    return redirect(url_for('blog.home'))
 
 
-
-
-
-
-
-
-
-
+app.register_blueprint(blog_blueprint)
 
 
 if __name__ == "__main__":
