@@ -89,13 +89,18 @@ class Comment(db.Model):
 def home():
     return '<h3>welcome to blog</h3>'
 
+
+@vote_blueprint.route('/')
+def home():
+    return '<h2>vote page</h2>'
+
 @app.route('/')
 def index():
     return redirect(url_for('blog.home'))
 
 
 app.register_blueprint(blog_blueprint)
-
+app.register_blueprint(vote_blueprint)
 
 if __name__ == "__main__":
     app.run()
