@@ -1,5 +1,6 @@
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, render_template
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.bootstrap import Bootstrap
 from config import DevConfig
 from flask import Blueprint
 
@@ -7,6 +8,7 @@ from flask import Blueprint
 app = Flask(__name__)
 app.config.from_object(DevConfig)
 db = SQLAlchemy(app)
+bootstrap = Bootstrap(app)
 
 
 ## define blueprint ##
@@ -24,7 +26,7 @@ vote_blueprint = Blueprint(
     static_folder='static/vote',
     url_prefix='/vote'
 )
-
+## end of blueprint
 
 
 
@@ -87,7 +89,7 @@ class Comment(db.Model):
 
 @blog_blueprint.route('/')
 def home():
-    return '<h3>welcome to blog</h3>'
+    return render_template("index.html")
 
 
 @vote_blueprint.route('/')
@@ -103,4 +105,4 @@ app.register_blueprint(blog_blueprint)
 app.register_blueprint(vote_blueprint)
 
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0')
