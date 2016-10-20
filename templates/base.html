@@ -2,13 +2,14 @@
 
 {% block head %}
 {{ super() }}
-{% block title%}{% endblock %}
 <link rel="shortcut-icon" href="{{ url_for('static', filename='img/favicon.ico') }}"
   type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename='img/favicon.ico') }}"
   type="image/x-icon">
 
 {% endblock %}
+
+{% block title%}HAIMAPI{% endblock %}
 
 {% block navbar %}
 <div class="navbar navbar-inverse" role="navigation">
@@ -25,6 +26,8 @@
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
                 <li><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/vote">Vote</a></li>
             </ul>
         </div>
     </div>

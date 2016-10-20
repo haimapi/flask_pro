@@ -1,6 +1,6 @@
 from flask import Flask, redirect, url_for, render_template
-from flask.ext.sqlalchemy import SQLAlchemy
-from flask.ext.bootstrap import Bootstrap
+from flask_sqlalchemy import SQLAlchemy
+from flask_bootstrap import Bootstrap
 from config import DevConfig
 from flask import Blueprint
 
@@ -89,16 +89,16 @@ class Comment(db.Model):
 
 @blog_blueprint.route('/')
 def home():
-    return render_template("index.html")
+    return render_template('blog.html')
 
 
 @vote_blueprint.route('/')
 def home():
-    return '<h2>vote page</h2>'
+    return render_template('vote.html')
 
 @app.route('/')
 def index():
-    return redirect(url_for('blog.home'))
+    return render_template('index.html')
 
 
 app.register_blueprint(blog_blueprint)
