@@ -7,3 +7,4 @@ class ProdConfig(Config):
 class DevConfig(Config):
     Debug = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///fk.db'
+    SECRET_KEY = 'you never guess'
