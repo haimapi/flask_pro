@@ -1,3 +1,4 @@
+import os
 from flask import Flask, redirect, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
@@ -118,9 +119,24 @@ def book():
 
 
 
-@app.route('/user/<uname>')
-def user(uname):
-    return '<h1>hello, {}</h1>'.format(uname)
+@app.route('/user/<uname>/friend/<fname>')
+def user(uname, fname):
+    return "<h1>{0}'s friend is {1}</h1>".format(uname, fname)
+
+
+@app.route('/add/<int:num_1>/<int:num_2>')
+def add(num_1, num_2):
+    return '{0} + {1} = {2}'.format(num_1, num_2, num_1+num_2)
+
+
+@app.route('/file/<path:fname>')
+def read_file(fname):
+    base_dir = os.getcwd()
+    fullname = os.path.join(base_dir, 'share', fname)
+    fp = open(fullname)
+    cnt = fp.read()
+    fp.close()
+    return cnt
 
 @app.route('/auth', methods=['POST'])
 def auth():
