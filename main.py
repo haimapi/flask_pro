@@ -116,6 +116,16 @@ def movie():
 def book():
     return render_template('book.html')
 
+
+
+@app.route('/user/<uname>')
+def user(uname):
+    return '<h1>hello, {}</h1>'.format(uname)
+
+@app.route('/auth', methods=['POST'])
+def auth():
+    return render_template('auth.html')
+
 @app.errorhandler(404)
 def page_not_found_error(error):
     return render_template('404.html'), 404

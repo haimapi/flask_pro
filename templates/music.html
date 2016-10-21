@@ -3,4 +3,9 @@
 
 {% block page_content %}
 <h2>music page</h2>
+<form action="/auth" method="POST">
+    <input type="text" name="uid">
+    <input type="password" name="pwd">
+    <input type="submit" value="submit">
+</form>
 {% endblock %}
