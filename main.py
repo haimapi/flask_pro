@@ -1,6 +1,7 @@
 from flask import Flask, redirect, url_for, render_template
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
+from flask_mail import Mail, Message
 from config import DevConfig
 from flask import Blueprint
 
@@ -9,6 +10,7 @@ app = Flask(__name__)
 app.config.from_object(DevConfig)
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
+mail = Mail(app)
 
 
 ## define blueprint ##
@@ -100,6 +102,28 @@ def home():
 def index():
     return render_template('index.html')
 
+@app.route('/music')
+def music():
+    return render_template('music.html')
+
+
+@app.route('/movie')
+def movie():
+    return render_template('movie.html')
+
+
+@app.route('/book')
+def book():
+    return render_template('book.html')
+
+@app.errorhandler(404)
+def page_not_found_error(error):
+    return render_template('404.html'), 404
+
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return render_template('500.html'), 500
 
 app.register_blueprint(blog_blueprint)
 app.register_blueprint(vote_blueprint)
