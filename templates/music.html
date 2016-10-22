@@ -4,8 +4,15 @@
 {% block page_content %}
 <h2>music page</h2>
 <form action="/auth" method="POST">
-    <input type="text" name="uid">
-    <input type="password" name="pwd">
+    System
+    <input type="text" name="system" placeholder="input system">
+    <br>
+    Username
+    <input type="text" name="uid" placeholder="input username">
+    <br>
+    Password
+    <input type="password" name="pwd" placeholder="input password">
+    <br>
     <input type="submit" value="submit">
 </form>
 {% endblock %}

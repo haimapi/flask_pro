@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail, Message
@@ -101,10 +101,12 @@ def home():
 
 @app.route('/')
 def index():
+    print request.cookies
     return render_template('index.html')
 
 @app.route('/music')
 def music():
+    #print request.form['uid']
     return render_template('music.html')
 
 
@@ -140,7 +142,13 @@ def read_file(fname):
 
 @app.route('/auth', methods=['POST'])
 def auth():
-    return render_template('auth.html')
+    uid = request.form['uid']
+    pwd = request.form['pwd']
+    sys = request.form['system']
+    log_in_success = False
+    if uid == 'jon' and pwd == '123' and sys == 'CRM':
+        log_in_success = True
+    return render_template('auth.html', log_in_status=log_in_success)
 
 @app.errorhandler(404)
 def page_not_found_error(error):
@@ -155,4 +163,5 @@ app.register_blueprint(blog_blueprint)
 app.register_blueprint(vote_blueprint)
 
 if __name__ == "__main__":
+
     app.run(host='0.0.0.0')

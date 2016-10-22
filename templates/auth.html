@@ -2,5 +2,9 @@
 {% block title%}AUTH{% endblock %}
 
 {% block page_content %}
-<h2>auth here</h2>
+{% if log_in_status==True %}
+<h2>auth successful</h2>
+{% else %}
+<h2>auth fail</h2>
+{% endif %}
 {% endblock %}
