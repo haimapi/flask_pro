@@ -117,7 +117,7 @@ def movie():
 
 @app.route('/search')
 def search():
-    print request.args['search_content']
+    return request.args['search_content']
     
 
 
@@ -170,4 +170,4 @@ app.register_blueprint(vote_blueprint)
 
 if __name__ == "__main__":
 
-    app.run(host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0')
