@@ -115,6 +115,12 @@ def movie():
     return render_template('movie.html')
 
 
+@app.route('/search')
+def search():
+    print request.args['search_content']
+    
+
+
 @app.route('/book')
 def book():
     return render_template('book.html')
