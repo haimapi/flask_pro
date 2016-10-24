@@ -1,5 +1,5 @@
 import os
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template, request, json
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail, Message
@@ -118,12 +118,19 @@ def movie():
 @app.route('/search')
 def search():
     return request.args['search_content']
-    
+
 
 
 @app.route('/book')
 def book():
     return render_template('book.html')
+
+
+@app.route('/json_test', methods=['GET', 'POST'])
+def json_test():
+    print request.json
+    return render_template('json_test.html')
+
 
 
 

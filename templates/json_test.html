@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>json_test</title>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+
+
+<body>
+<form id="json_test">
+    <input type="text" name="username" placeholder="user name">
+    <input type="text" name="tel" placeholder="telephone">
+    <input type="submit" value="Ajax POST">
+</form>
+<div id="status">
+</div>
+
+
+
+<script>
+$(function(){
+    $("form#json_test").submit(function(){
+        var data = $("form#json_test").serializeArray();
+        //console.log(data);
+        var jsondata = {}
+        data.forEach(function(d){jsondata[d.name] = d.value});
+        $.ajax({
+            url:"/json_test",
+            method:"POST",
+            data:JSON.stringify(jsondata),
+            contentType: "application/json;charset=UTF-8",
+            success: function(){
+                console.log(jsondata);
+                $("#status").text(JSON.stringify(jsondata));
+            },
+            error:function(){}
+        });
+        return false;
+    });
+})
+</script>
+</body>
+</html>
