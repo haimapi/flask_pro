@@ -1,12 +1,11 @@
-<!DOCTYPE HTML>
-<html>
-<head>
-    <title>json_test</title>
+{% extends "base.html" %}
+{% block title %}json_test{% endblock %}
+{% block head %}
+    {{ super() }}
     <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-</head>
+{% endblock %}
 
-
-<body>
+{% block page_content %}
 <form id="json_test">
     <input type="text" name="username" placeholder="user name">
     <input type="text" name="tel" placeholder="telephone">
@@ -30,7 +29,8 @@ $(function(){
             data:JSON.stringify(jsondata),
             contentType: "application/json;charset=UTF-8",
             success: function(){
-                console.log(jsondata);
+                //console.log(jsondata);
+                //callback function if data send successfully
                 $("#status").text(JSON.stringify(jsondata));
             },
             error:function(){}
@@ -39,5 +39,4 @@ $(function(){
     });
 })
 </script>
-</body>
-</html>
+{% endblock %}

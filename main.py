@@ -1,5 +1,5 @@
-import os
-from flask import Flask, redirect, url_for, render_template, request, json
+import os, time
+from flask import Flask, redirect, url_for, render_template, request, json, make_response
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail, Message
@@ -101,8 +101,21 @@ def home():
 
 @app.route('/')
 def index():
-    print request.cookies
-    return render_template('index.html')
+    response = make_response(render_template('index.html'))
+    #print request.cookies['name']
+    response.set_cookie('lastvisit', time.ctime())
+    print request.cookies.get('lastvisit')
+    return response
+
+@app.route('/page1')
+def page1():
+    response = make_response('hello, go to <a href="/page2">page2</a>')
+    response.set_cookie('user', 'jon')
+    return response
+
+@app.route('/page2')
+def page2():
+    return "your are user {}".format(request.cookies.get('user'))
 
 @app.route('/music')
 def music():
