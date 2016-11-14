@@ -7,6 +7,8 @@ class Config(object):
 class ProdConfig(Config):
     pass
 
+
+# config for development
 class DevConfig(Config):
     Debug = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///fk.db'

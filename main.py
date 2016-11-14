@@ -1,5 +1,5 @@
 import os, time
-from flask import Flask, redirect, url_for, render_template, request, json, make_response
+from flask import Flask, redirect, url_for, render_template, request, json, make_response, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail, Message
@@ -105,6 +105,7 @@ def index():
     #print request.cookies['name']
     response.set_cookie('lastvisit', time.ctime())
     print request.cookies.get('lastvisit')
+    print request.cookies.get('session')
     return response
 
 @app.route('/page1')
@@ -145,6 +146,12 @@ def json_test():
     return render_template('json_test.html')
 
 
+@app.route('/admin')
+def admin():
+    if request.args.get('token') == '19911210':
+        return '<h1>you are a good boy</h1>'
+    else:
+        abort(401)
 
 
 @app.route('/user/<uname>/friend/<fname>')
