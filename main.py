@@ -1,5 +1,5 @@
 import os, time
-from flask import Flask, redirect, url_for, render_template, request, json, make_response, abort
+from flask import Flask, redirect, url_for, render_template, request, json, make_response, abort, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_bootstrap import Bootstrap
 from flask_mail import Mail, Message
@@ -117,6 +117,18 @@ def page1():
 @app.route('/page2')
 def page2():
     return "your are user {}".format(request.cookies.get('user'))
+
+
+@app.route('/login')
+def login():
+    if 'counter' not in session:
+        session['counter'] = 0
+    session['counter'] += 1
+    return 'this is your {} times visis'.format(session['counter'])
+
+
+
+
 
 @app.route('/music')
 def music():
