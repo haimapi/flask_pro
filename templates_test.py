@@ -19,11 +19,32 @@ def index():
     tpl = 'the string {{ str }} has {{ str | word_counter }} words!'
     return render_template_string(tpl, str='hello, xq, it is good!')
 '''
+data = [
+    {'name' : 'John', 'age' : 20, 'unit' : 'CIA'},
+    {'name' : 'Linda', 'age' : 21,'unit' : 'FBI'},
+    {'name' : 'Mary', 'age' : 30, 'unit' : 'FBI'},
+    {'name' : 'Cook', 'age' : 40, 'unit' : 'CIA'}]
+
 @app.route('/')
 def index():
     user = {'id':123, 'nickname':'<script>alert("xss vulnerable!")</script>'}
     tpl = '<h1>homepage of {{ nickname | safe }}</h1>'
     return render_template_string(tpl, **user)
+
+@app.route('/user')
+def user():
+    tpl = '''
+    <ul>
+      {% for user in users if user.unit == 'CIA' %}
+      <li>{{ user.name }}</li>
+      {% else %}
+      <li>Not Found</li>
+      {% endfor %}
+      '''
+
+      return render_template_string(tpl, users=data)
+
+
 
 @app.route('/test', methods=['GET', 'POST'])
 def test():
