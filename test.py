@@ -1,4 +1,4 @@
-from flask import Flask, request, url_for, session, make_response
+from flask import Flask, request, url_for, session, make_response, render_template
 from flask.globals import _request_ctx_stack, _app_ctx_stack
 app = Flask(__name__)
 
@@ -67,6 +67,15 @@ def v_index():
     rsp = make_response('{}'.format(session['counter']))
     rsp.set_cookie('name', 'xq')
     return rsp
+
+
+@app.context_processor
+def vendor_processor():
+    return dict(country='cn')
+
+@app.route('/tmp_test')
+def tmp_test():
+    return render_template('tmp.html')
 
 if __name__ == '__main__':
     app.run()
